@@ -1,13 +1,12 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect }from 'react'
+import styles from './CountryPicker.module.css'
 
-export class CountryPicker extends Component {
-    render() {
-        return (
-            <div>
-                Country Picker
-            </div>
-        )
-    }
+const CountryPicker = (props) => {
+    return (
+        <div className={styles.container}>
+            countrypicker
+        </div>
+    )
 }
 
 export default CountryPicker

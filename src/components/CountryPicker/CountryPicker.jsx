@@ -16,7 +16,10 @@ const CountryPicker = ({ handleCountryChange }) => {
   }, []);
 
   return (
-   <div></div>
+   <div className={styles.container}>
+       <h1 className={styles.heading}>Covid Tracker</h1>
+
+   </div>
   );
 };
 

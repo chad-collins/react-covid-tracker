@@ -3,7 +3,7 @@ import { Line, Bar } from 'react-chartjs-2';
 import { fetchDailyData } from '../../api';
 import styles from './Chart.module.css'
 
-const Chart = () => {
+const Chart = ({data: { confirmed, deaths, recovered }, country}) => {
     const [dailyData, setDailyData] = useState([]);
 
     useEffect(() => {
@@ -11,7 +11,8 @@ const Chart = () => {
             setDailyData(await fetchDailyData());   
         }
         fetchAPI();
-    })
+    }, []);
+
 
     const lineChart = (
         dailyData.length
@@ -24,14 +25,14 @@ const Chart = () => {
                         data: dailyData.map(({ deaths }) => deaths ),
                         label: 'Deaths',
                         borderColor: 'gray',
-                        backgroundColor: '#e76f51',
+                        backgroundColor: '#c0392b',
                         fill: true,
                     },
                     {
                         data: dailyData.map(({ confirmed }) => confirmed ),
                         label: 'Infected',
                         borderColor: 'gray',
-                        backgroundColor: '#e9c46a',
+                        backgroundColor: '#f1c40f',
                         fill: true,
                     },
                   ]
@@ -41,9 +42,33 @@ const Chart = () => {
 
     );
 
+    const barChart = (
+        confirmed ? (
+          <Bar
+            data={{
+              labels: ['Infected', 'Recovered', 'Deaths'],
+              datasets: [
+                {
+                  label: 'People',
+                  backgroundColor: ['#f1c40f', '#2ecc71', '#c0392b'],
+                  data: [confirmed.value, recovered.value, deaths.value],
+                },
+              ],
+            }}
+            options={{
+              legend: { display: false },
+              title: { display: true, text: `Current state in ${country}` },
+            }}
+          />
+        ) : null
+      );
+    
+       
+    
+
     return (
         <div className={styles.container}>
-            {lineChart}
+            {country && country !== 'global' ? barChart : lineChart}
             
         </div>
     )

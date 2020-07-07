@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Cards, Chart, CountryPicker } from './components/'
+import { Cards, Chart, CountryPicker, Header } from './components/'
 import styles from './App.module.css'
 import { fetchData } from './api'
 
@@ -8,27 +8,43 @@ export class App extends Component {
 
   state = {
     data: {},
+    country: '',
+  }
+
+  fetchData = async (country) => {
+    const fetchedData = await fetchData(country);
+    this.setState({
+      data: fetchedData,
+      country: country
+    })
   }
 
 
+  handleCountryChange = async (country) => {
+    this.fetchData(country);
+  }
 
   async componentDidMount() {
-    const fetchedData = await fetchData();
-    this.setState({ data: fetchedData })
+    this.fetchData();
   }
 
+
+
   render() {
-    const { data } = this.state;
+    const { data, country } = this.state;
     return (
       <div className={styles.container}>
-        <div className={styles.sidebar}>
-          <CountryPicker />
+          <div className={styles.header}>
+          <Header />
         </div>
-        <div className={styles.header}>
-          <Cards data={data} />
+        <div className={styles.sidebar}>
+          <CountryPicker handleCountryChange={this.handleCountryChange} />
+        </div>
+        <div className={styles.cards}>
+          <Cards country={country} data={data} />
         </div>
         <div className={styles.main}>
-          <Chart />
+          <Chart country={country} data={data} />
         </div>
       </div>
     )

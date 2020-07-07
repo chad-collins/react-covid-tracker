@@ -1,27 +1,67 @@
-import React, { useState, useEffect } from 'react';
-
+import React, { Component } from 'react'
 import { fetchCountries } from '../../api';
-
 import styles from './CountryPicker.module.css';
 
-const CountryPicker = ({ handleCountryChange }) => {
-  const [countries, setCountries] = useState([]);
+export class CountryPicker extends Component {
 
-  useEffect(() => {
-    const fetchAPI = async () => {
-      setCountries(await fetchCountries());
-    };
+  state = {
+    countries: [],
+    isActive: 'global'
+  }
 
-    fetchAPI();
-  }, []);
+  async componentDidMount() {
+    const countries = await fetchCountries();
+    this.setState({ countries })
+  }
 
-  return (
-   <div className={styles.container}>
-       <h1 className={styles.heading}>Covid Tracker</h1>
+  handleClick = (e, country) => {
+    this.props.handleCountryChange(country);
+    const isActive = e.target.value
+    this.setState({ isActive })
+  }
 
-   </div>
-  );
-};
+  getActiveClass = (country) => {
+    return this.state.isActive == country ? styles.active : null
+  }
 
+  render() {
+
+    return (
+      <div className={styles.container}>
+        <ul className={styles.list}>
+          <li className={styles.item}
+
+          >
+            <button
+              className={this.getActiveClass('global')}
+              onClick={(e) => this.handleClick(e, 'global')}
+              value="global"
+            >Global
+
+              </button>
+
+
+
+          </li>
+          {this.state.countries ? (this.state.countries.map((country, index) =>
+            <li
+            className={styles.item}
+            >
+              <button
+                className={this.state.isActive == country ? styles.active : null}
+                onClick={(e) => this.handleClick(e, country)}
+                key={index}
+                value={country}
+              >{country}
+
+              </button>
+            </li>
+          )) : null}
+        </ul>
+
+      </div>
+    )
+  }
+}
 
 export default CountryPicker

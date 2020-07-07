@@ -22,3 +22,13 @@
 .deaths {
     border-bottom: 10px solid rgba(255, 0, 0, 0.5);
 }
+
+@media only screen and (min-width: 900px) {
+    .list {
+        display: flex;
+    }
+
+    .card{
+        width: 275px;
+    }
+  }

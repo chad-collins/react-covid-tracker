@@ -1,12 +1,24 @@
-import React, { useState, useEffect }from 'react'
-import styles from './CountryPicker.module.css'
+import React, { useState, useEffect } from 'react';
 
-const CountryPicker = (props) => {
-    return (
-        <div className={styles.container}>
-            countrypicker
-        </div>
-    )
-}
+import { fetchCountries } from '../../api';
+
+import styles from './CountryPicker.module.css';
+
+const CountryPicker = ({ handleCountryChange }) => {
+  const [countries, setCountries] = useState([]);
+
+  useEffect(() => {
+    const fetchAPI = async () => {
+      setCountries(await fetchCountries());
+    };
+
+    fetchAPI();
+  }, []);
+
+  return (
+   <div></div>
+  );
+};
+
 
 export default CountryPicker

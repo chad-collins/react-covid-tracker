@@ -17,6 +17,8 @@
 .list {
     overflow-y: scroll;
     overflow-x: hidden;
+    -webkit-overflow-scrolling: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .item {

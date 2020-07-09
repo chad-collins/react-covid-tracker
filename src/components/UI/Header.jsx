@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import styles from './Header.module.css'
+import icon from '../../menu.svg'
+import cx from "classnames";
 
 export class Header extends Component {
 
@@ -9,12 +11,18 @@ export class Header extends Component {
         this.props.toggleSidebar()
     }
 
+    rotate = () => {
+        if(this.props.showingSidebar){
+            return styles.rotate
+        }
+        else return ''
+    }
     
 
     render() {
         return (
             <div className={styles.container}>
-               <button className={styles.button} onClick={this.handleClick}>click</button>
+               <img className={cx(styles.icon, this.rotate())} src={icon} onClick={this.handleClick} alt="Menu"/>
             </div>
         )
     }

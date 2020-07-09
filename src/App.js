@@ -55,11 +55,15 @@ export class App extends Component {
   // When the screen is resized from over 900px to under 900px, hide the sidebar.
   getSnapshotBeforeUpdate(prevProps, prevState) {
     if (prevState.isMobile === false && this.state.isMobile === true) {
-      this.showingSidebar = false;
+      this.setState({ showingSidebar: false })
     }
   }
 
   async componentDidMount() {
+    console.log(window.innerWidth)
+   if(window.innerWidth > 900){
+    this.setState({isMobile: false}) 
+   } 
     this.fetchData();
     this.watchScreenSize();
   }
@@ -68,7 +72,10 @@ export class App extends Component {
     const { data, country, isMobile, showingSidebar } = this.state;
     return (
       <div className={styles.container}>
-        <Header toggleSidebar={this.toggleSidebar} />
+        <Header 
+        toggleSidebar={this.toggleSidebar}
+        showingSidebar={showingSidebar}
+         />
         <CountryPicker
           showingSidebar={showingSidebar}
           isMobile={isMobile}

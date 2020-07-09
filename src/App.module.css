@@ -9,41 +9,24 @@ body {
 }
 
 .container {
-    display: grid;
-    grid-template-areas:
-    "side cards cards"
-    "side main main";
+    display: flex;
+    flex-direction: column;
     height: 100vh;
     width: 100vw;
-    grid-template-columns: 300px 1fr;
-    grid-template-rows: 1fr 4fr;
     overflow: hidden;
 }
 
-.sidebar {
-    margin-top: 65px;
-    grid-area: side;
-}
 
-.header {
-
-}
-
-.cards {
-    margin-top: 65px;
-    margin-bottom: 0;
-    padding-bottom: 0;
-    grid-area: cards;
-}
-
-.main {
+@media only screen and (min-width: 900px) {
+.wrapper {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    margin-left: 300px;
     align-items: center;
-    height: 100%;
-    width: 100%;
-    padding: 1rem;
-    grid-area: main;
-    display: flex;
-    justify-content: center;
 }
+}
+
+
+
+
+

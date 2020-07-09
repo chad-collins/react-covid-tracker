@@ -9,6 +9,7 @@ export class App extends Component {
     country: "",
     showingSidebar: false,
     isMobile: true,
+    siteTitle: 'Covid 19 Tracker'
   };
 
   fetchData = async (country) => {
@@ -69,10 +70,11 @@ export class App extends Component {
   }
 
   render() {
-    const { data, country, isMobile, showingSidebar } = this.state;
+    const { data, country, isMobile, showingSidebar, siteTitle } = this.state;
     return (
       <div className={styles.container}>
         <Header 
+        siteTitle={siteTitle}
         toggleSidebar={this.toggleSidebar}
         showingSidebar={showingSidebar}
          />
